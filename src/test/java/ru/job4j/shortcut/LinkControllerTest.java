@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.shortcut.model.Link;
 import ru.job4j.shortcut.model.LinkDTO;
 import ru.job4j.shortcut.model.Site;
@@ -109,8 +110,9 @@ public class LinkControllerTest {
         ).andExpect(status().isOk());
     }
 
+    @Transactional
     @Test
-    public void whenCreateNewLinkAndUpdateAndRedirectThenStatusFound() throws Exception {
+    public void whenRedirectThenStatusFound() throws Exception {
         String token = JWTAuthenticationFilter.createToken("test");
         Site forTestSite = Site.of("test");
         Link forTestLink = Link.of("test/111", forTestSite);
