@@ -116,7 +116,6 @@ public class LinkController {
         return ResponseEntity.ok().build();
     }
 
-    @Transactional
     @GetMapping("/redirect/{shortcut}")
     public ResponseEntity<UrlShortcutDTO> redirect(@PathVariable("shortcut") String shortUrl) {
         var link = this.linkRepository.findByShortcut(shortUrl);

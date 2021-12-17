@@ -11,14 +11,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.shortcut.model.Link;
 import ru.job4j.shortcut.model.LinkDTO;
 import ru.job4j.shortcut.model.Site;
 import ru.job4j.shortcut.repository.LinkRepository;
 import ru.job4j.shortcut.repository.SiteRepository;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -110,7 +108,6 @@ public class LinkControllerTest {
         ).andExpect(status().isOk());
     }
 
-    @Transactional
     @Test
     public void whenRedirectThenStatusFound() throws Exception {
         String token = JWTAuthenticationFilter.createToken("test");
