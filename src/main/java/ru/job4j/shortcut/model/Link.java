@@ -3,6 +3,8 @@ package ru.job4j.shortcut.model;
 import org.apache.commons.lang.RandomStringUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -10,10 +12,15 @@ import java.util.Objects;
 public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(message = "Id of site must be not null")
     private int id;
 
+    @NotNull(message = "Url of site must be not null")
+    @NotBlank(message = "Url of site must be not empty")
     private String url;
 
+    @NotNull(message = "Shortcut url of site must be not null")
+    @NotBlank(message = "Shortcut url of site must be not empty")
     private String shortcut;
 
     private int total;

@@ -1,11 +1,15 @@
 package ru.job4j.shortcut.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class LinkDTO {
 
     private int siteId;
 
+    @NotNull(message = "Url for convert must be not null")
+    @NotEmpty(message = "Url for convert must be not empty")
     private String url;
 
     public LinkDTO(int siteId, String url) {

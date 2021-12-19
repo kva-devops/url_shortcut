@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.shortcut.model.Site;
+import ru.job4j.shortcut.model.SiteOnlyNameDTO;
 import ru.job4j.shortcut.repository.SiteRepository;
 
 import java.util.Optional;
@@ -49,10 +50,11 @@ class SiteControllerTests {
     @Test
     public void whenRegNewSiteWhenReturnOk() throws Exception {
         Site site = Site.of("test");
+        SiteOnlyNameDTO siteOnlyNameDTO = SiteOnlyNameDTO.of("test");
         String loginGen = site.getUsername();
         when(siteRepository.save(any(Site.class))).thenReturn(site);
         mockMvc.perform(post("/site/registration")
-                .content(mapper.writeValueAsString(site))
+                .content(mapper.writeValueAsString(siteOnlyNameDTO))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.registered", is(false)))

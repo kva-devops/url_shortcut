@@ -2,20 +2,29 @@ package ru.job4j.shortcut.model;
 
 import org.apache.commons.lang.RandomStringUtils;
 
+
 import javax.persistence.*;
 import java.util.Objects;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "sites")
 public class Site {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(message = "Id of site must be not null")
     private int id;
 
+    @NotNull(message = "Name of site must be not null")
+    @NotBlank(message = "Name of site must be not empty")
     private String nameOfSite;
 
+    @NotNull(message = "Username of site must be not null")
+    @NotBlank(message = "Username of site must be not empty")
     private String username;
 
+    @NotNull(message = "Password of site must be not null")
+    @NotBlank(message = "Password of site must be not empty")
     private String password;
 
     public static Site of(String nameOfSite) {

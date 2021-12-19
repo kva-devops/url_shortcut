@@ -58,9 +58,9 @@ public class LinkControllerTest {
         Mockito.when(linkRepository.findById(link.getId())).thenReturn(Optional.of(link));
         mockMvc.perform(
                 get("/link/0")
-                .header("Authorization", "Bearer " + token))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.url", is("test/1111")));
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.url", is("test/1111")));
     }
 
     @Test
