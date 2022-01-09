@@ -45,7 +45,7 @@ public class LinkController {
     }
 
     @GetMapping("/redirect/{shortcut}")
-    public ResponseEntity<UrlShortcutDTO> redirect(@PathVariable("shortcut") String shortUrl) {
+    public ResponseEntity<Void> redirect(@PathVariable("shortcut") String shortUrl) {
         return mainService.redirectLink(shortUrl);
     }
 

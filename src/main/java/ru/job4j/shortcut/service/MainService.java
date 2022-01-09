@@ -1,5 +1,6 @@
 package ru.job4j.shortcut.service;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -186,16 +187,17 @@ public class MainService {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<UrlShortcutDTO> redirectLink(String shortUrl) {
+    public ResponseEntity<Void> redirectLink(String shortUrl) {
         var link = this.linkRepository.findByShortcut(shortUrl);
         if (link == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Shortcut not found");
         }
         this.linkRepository.incrementTotal();
-        UrlShortcutDTO urlShortcutDTO = new UrlShortcutDTO("http://" + link.getUrl());
-        return ResponseEntity.status(HttpStatus.FOUND)
-                .header("Content-Type", "application/json")
-                .body(urlShortcutDTO);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Location", "http://" + link.getUrl());
+        return new ResponseEntity<>(
+                httpHeaders, HttpStatus.MOVED_PERMANENTLY
+        );
     }
 
     public ResponseEntity<StatLinkListDTO> statLinkForSite(int siteId) {
