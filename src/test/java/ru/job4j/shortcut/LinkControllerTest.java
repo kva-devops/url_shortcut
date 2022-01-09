@@ -121,7 +121,6 @@ public class LinkControllerTest {
         mockMvc.perform(
                 get("/link/redirect/{shortcut}", shortcut)
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isFound())
-                .andExpect(jsonPath("$.shortcutUrl", is("http://test/111")));
+                .andExpect(status().isMovedPermanently());
     }
 }
