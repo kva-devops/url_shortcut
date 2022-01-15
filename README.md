@@ -3,29 +3,35 @@
 [![codecov](https://codecov.io/gh/kva-devops/url_shortcut/branch/master/graph/badge.svg?token=j5QTwb0y1k)](https://codecov.io/gh/kva-devops/url_shortcut)
 
 ## О проекте.
-Приложение реализует функционал сервиса по сокращению ссылок.
- 
+#### Описание
+Приложение реализует функционал web-сервиса по сокращению ссылок. 
+
+#### Технологии
+> JDK14, Maven, Spring Boot, PostgreSQL, Liquibase, JWT
+
 ## Сборка.
-JDK14, Maven, Spring Boot, PostgreSQL, Liquibase, JWT
+0. Скачать файлы репозитория
+1. Произвести сборку проекта: `mvn clean install`
+2. Скопировать полученный файл "url_shortcut-1.0.jar" из папки target в папку вашего сервера
 
 ## Запуск через Docker Compose
 1. Создать директорию на сервере и скопировать файлы репозитория
-2. Перейти в созданную директорию (корень проекта) и собрать приложение командой: "mvn install"
-3. Собирать docker-образ приложения командой: "docker build -t shortcut ."
+2. Перейти в созданную директорию (корень проекта) и собрать приложение командой: `mvn install`
+3. Собирать docker-образ приложения командой: `docker build -t shortcut .`
 4. При необходимости отредактировать порты, используемые приложением в файле docker-compose.yml
-5. Запустить приложение командой: "docker-compose up"
+5. Запустить приложение командой: `docker-compose up`
 
 ## Запуск в кластере K8s
 Файлы конфигурации *.yml находятся в корне проекта, в директории k8s
-1. Создаем Secret: "kubectl apply -f postgresdb-secret.yml"
-2. Создаем ConfigMap: "kubectl apply -f postgresdb-configmap.yml"
-3. Создаем Deployment для БД: "kubectl apply -f postgresdb-deployment.yml"
-4. Создаем Deployment для Spring Boot: "kubectl apply -f spring-deployment.yml"
+1. Создаем Secret: `kubectl apply -f postgresdb-secret.yml`
+2. Создаем ConfigMap: `kubectl apply -f postgresdb-configmap.yml`
+3. Создаем Deployment для БД: `kubectl apply -f postgresdb-deployment.yml`
+4. Создаем Deployment для Spring Boot: `kubectl apply -f spring-deployment.yml`
 
 
 ## Как пользоваться.
 После старта приложения необходимо зарегистрироваться в нем, либо ввести свои логин и пароль.
-Регистрация производится по названию сайта, например: "mysite.ru".
+Регистрация производится по названию сайта, например: `mysite.ru`.
 
 ![registration](images/Selection_147.png)
 
