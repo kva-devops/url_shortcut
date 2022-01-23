@@ -7,7 +7,7 @@
 Приложение реализует функционал web-сервиса по сокращению ссылок. 
 
 #### Технологии
-> JDK14, Maven, Spring Boot, PostgreSQL, Liquibase, JWT
+> JDK14, Maven, Spring Boot 2, Spring Data JPA, PostgreSQL, Liquibase, Spring Security, JWT
 
 ## Сборка.
 0. Скачать файлы репозитория
