@@ -58,7 +58,7 @@ class SiteControllerTests {
         mockMvc.perform(post("/site/registration")
                 .content(mapper.writeValueAsString(siteOnlyNameDTO))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.registered", is(false)))
                 .andExpect(jsonPath("$.login", is(loginGen)));
     }

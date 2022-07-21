@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.job4j.shortcut.model.Link;
 import ru.job4j.shortcut.model.LinkDTO;
+import ru.job4j.shortcut.model.OriginalUrlDTO;
 import ru.job4j.shortcut.model.Site;
 import ru.job4j.shortcut.repository.LinkRepository;
 import ru.job4j.shortcut.repository.SiteRepository;
@@ -61,7 +62,6 @@ public class LinkControllerTest {
         mockMvc.perform(
                 get("/link/0")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.url", is("test/1111")));
     }
 
@@ -78,7 +78,7 @@ public class LinkControllerTest {
                         .header("Authorization", "Bearer " + token)
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(linkDTO))
-        ).andExpect(status().isCreated());
+        ).andExpect(status().isOk());
     }
 
     @Test
@@ -115,12 +115,14 @@ public class LinkControllerTest {
         String token = JWTAuthenticationFilter.createToken("test");
         Site forTestSite = Site.of("test");
         Link forTestLink = Link.of("test/111", forTestSite);
+        OriginalUrlDTO originalUrlDTO = new OriginalUrlDTO(forTestLink.getUrl());
         forTestLink.setShortcut("edit");
         String shortcut = forTestLink.getShortcut();
         Mockito.when(linkRepository.findByShortcut(shortcut)).thenReturn(forTestLink);
         mockMvc.perform(
                 get("/link/redirect/{shortcut}", shortcut)
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isMovedPermanently());
+                .andExpect(content().json(mapper.writeValueAsString(originalUrlDTO)))
+                .andExpect(status().isOk());
     }
 }
