@@ -1,33 +1,19 @@
 package ru.job4j.shortcut.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class StatLinkDTO {
 
     private String url;
 
     private int total;
-
-    public StatLinkDTO(String url, int total) {
-        this.url = url;
-        this.total = total;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
 
     @Override
     public boolean equals(Object o) {

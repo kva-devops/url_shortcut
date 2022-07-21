@@ -1,9 +1,14 @@
 package ru.job4j.shortcut.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+@Getter
+@Setter
 public class SiteOnlyNameDTO {
     @NotNull(message = "Name of site must be not null")
     @NotEmpty(message = "Name of site must be not empty")
@@ -13,14 +18,6 @@ public class SiteOnlyNameDTO {
         SiteOnlyNameDTO site = new SiteOnlyNameDTO();
         site.nameOfSite = nameOfSite;
         return site;
-    }
-
-    public String getNameOfSite() {
-        return nameOfSite;
-    }
-
-    public void setNameOfSite(String nameOfSite) {
-        this.nameOfSite = nameOfSite;
     }
 
     @Override

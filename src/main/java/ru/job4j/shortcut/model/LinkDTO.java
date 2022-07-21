@@ -1,37 +1,33 @@
 package ru.job4j.shortcut.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+/**
+ * DTO for parameter of method for link shortening
+ */
+@Getter
+@Setter
+@AllArgsConstructor
 public class LinkDTO {
 
+    /**
+     * Site ID
+     */
     private int siteId;
 
+    /**
+     * URL to be shortened (format: "name.com/some/thing")
+     * The root of this URL should be the site name you provided during registration.
+     */
     @NotNull(message = "Url for convert must be not null")
     @NotEmpty(message = "Url for convert must be not empty")
     private String url;
-
-    public LinkDTO(int siteId, String url) {
-        this.siteId = siteId;
-        this.url = url;
-    }
-
-    public int getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(int siteId) {
-        this.siteId = siteId;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     @Override
     public boolean equals(Object o) {

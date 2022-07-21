@@ -1,23 +1,18 @@
 package ru.job4j.shortcut.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 import java.util.Objects;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class StatLinkListDTO {
 
     private List<StatLinkDTO> statLinkDTOList;
-
-    public StatLinkListDTO(List<StatLinkDTO> statLinkDTOList) {
-        this.statLinkDTOList = statLinkDTOList;
-    }
-
-    public List<StatLinkDTO> getStatLinkDTOList() {
-        return statLinkDTOList;
-    }
-
-    public void setStatLinkDTOList(List<StatLinkDTO> statLinkDTOList) {
-        this.statLinkDTOList = statLinkDTOList;
-    }
 
     @Override
     public boolean equals(Object o) {
