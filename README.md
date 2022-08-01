@@ -1,79 +1,75 @@
-# Приложение ShortcutURL
+# Application ShortcutURL
 [![Build Status](https://app.travis-ci.com/kva-devops/url_shortcut.svg?branch=master)](https://app.travis-ci.com/kva-devops/url_shortcut)
 [![codecov](https://codecov.io/gh/kva-devops/url_shortcut/branch/master/graph/badge.svg?token=j5QTwb0y1k)](https://codecov.io/gh/kva-devops/url_shortcut)
 
-## О проекте.
-#### Описание
-Приложение реализует функционал REST-сервиса по сокращению ссылок. Позволяет пользователю получать сокращенные ссылки на свой сайт.
-При использовании сокращенной ссылки сервис будет производить редирект на исходный URL-адрес.
-Взаимодействие с сервисом происходит через простые http-запросы.
+## About project.
+#### Desc
+The application implements the functionality of a REST service for shortening links. Allows the user to receive shortened links to their site.
+When using a shortened link, the service will redirect to the original URL.
+Interaction with the service occurs through simple http requests.
 
-#### Технологии
+#### Technology
 > JDK14, Maven, Spring Boot 2, Spring Data JPA, PostgreSQL, Liquibase, Spring Security, JWT, REST API
 
-## Сборка.
-0. Скачать файлы репозитория
-1. Произвести сборку проекта: `mvn clean install`
-2. Скопировать полученный файл "url_shortcut-1.0.jar" из папки target в папку вашего сервера
+## Init.
+0. Download repository files
+1. Build the project: `mvn clean install`
+2. Copy the resulting file "url_shortcut-1.0.jar" from the target folder to your server folder
 
-## Запуск через Docker Compose
-1. Создать директорию на сервере и скопировать файлы репозитория
-2. Перейти в созданную директорию (корень проекта) и собрать приложение командой: `mvn install`
-3. Собирать docker-образ приложения командой: `docker build -t shortcut .`
-4. При необходимости отредактировать порты, используемые приложением в файле docker-compose.yml
-5. Запустить приложение командой: `docker-compose up`
+## Working with docker
+1. Create a directory on the server and copy the repository files
+2. Go to the created directory (project root) and build the application with the command: `mvn install`
+3. Build the docker image of the application with the command: `docker build -t shortcut .`
+4. If necessary, edit the ports used by the application in the docker-compose.yml file
+5. Run the application with the command: `docker-compose up`
 
-## Запуск в кластере K8s
-Файлы конфигурации *.yml находятся в корне проекта, в директории k8s
-1. Создаем Secret: `kubectl apply -f postgresdb-secret.yml`
-2. Создаем ConfigMap: `kubectl apply -f postgresdb-configmap.yml`
-3. Создаем Deployment для БД: `kubectl apply -f postgresdb-deployment.yml`
-4. Создаем Deployment для Spring Boot: `kubectl apply -f spring-deployment.yml`
+## Running in a K8s cluster
+The *.yml configuration files located in the root of the project, in the k8s directory
+1. Create Secret: `kubectl apply -f postgresdb-secret.yml`
+2. Create ConfigMap: `kubectl apply -f postgresdb-configmap.yml`
+3. Create a Deployment for the database: `kubectl apply -f postgresdb-deployment.yml`
+4. Create Deployment for Spring Boot: `kubectl apply -f spring-deployment.yml`
 
 
-## Как пользоваться.
-После старта приложения необходимо зарегистрироваться в нем, либо ввести свои логин и пароль.
-Регистрация производится по названию сайта, например: `mysite.ru`.
+## How use
+After starting the application, you need to register in it, or enter your username and password.
+Registration is made by the name of the site, for example: `mysite.ru`.
 
 ![registration](images/Selection_147.png)
 
-После регистрации для пользователя генерируются логин и пароль для доступа с систему. 
-Их необходимо сохранить для дальнейшего входа в систему. 
-Флаг "registered" означает, был ли пользователь ранее зарегистрирован в системе.
+After registration, a username and password are generated for the user to access the system.
+They must be saved for further login.
+The flag "registered" means whether the user was previously registered in the system.
 
-После входа в систему пользователю присваивается уникальный токен,
-т.к. приложение использует JWT аутентификацию и авторизацию.
+After logging in, the user is assigned a unique token,
+because the application uses JWT authentication and authorization.
 
 ![login](images/Selection_148.png)
 
-Для получения сокращенной ссылки необходимо выполнить запрос, передав в нем 
-исходную ссылку. Поле "siteId" - это уникальный идентификатор пользователя, 
-который присваивается ему при регистрации. 
-Глубина ссылки не имеет значения. Результат будет отправлен в теле ответа.
+To get a shortened link, you need to execute a request by passing in it
+original link. The "siteId" field is a unique user identifier,
+assigned to him upon registration.
+Link depth doesn't matter. The result will be sent in the response body.
 
 ![shortcut](images/Selection_149.png)  
 
-Важно учитывать, что корневой адрес исходной ссылки должен быть таким же
-как название сайта указанное при регистрации, например:
+It is important to consider that the root address of the original link must be the same
+as the name of the site specified during registration, for example:
 
-    адрес, указанный при регистрации - site.ru
-    адрес, который можно использовать - site.ru/***
-    адрес, который нельзя использовать - some-address.ru/***
+    address specified during registration - site.ru
+    address that can be used - site.ru/***
+    address that cannot be used - some-address.ru/***
 
-Если воспользоваться полученной ссылкой, произойдет перенаправление по исходному url адресу
+If you use the received link, you will be redirected to the original url address
 
 ![redirect](images/Selection_150.png)
 
-Приложение ведет статистику по количеству обращений к каждой хранящейся ссылке.
-Для получения статистики необходимо выполнить соответствующий запрос.
+The application maintains statistics on the number of hits to each stored link.
+To get statistics, you need to execute the corresponding query.
 
 ![stat](images/Selection_151.png)
   
-## Контакты.
-Кутявин Владимир Анатольевич
-
-skype: tribuna87
-
-email: tribuna87@mail.ru
+## Contact.
+Kutiavin Vladimir
 
 telegram: @kutiavinvladimir
